@@ -1,4 +1,6 @@
 from django.db import models
+
+
 # Django creates an auto incremeneted Id for each model but here just for the
 # sake of emphasis I created id for each model explicitly
 
@@ -10,6 +12,9 @@ class Banquets(models.Model):
     supper = models.IntegerField(null=False, help_text="Supper", blank=False)
     all_inclusive = models.IntegerField(null=False, help_text="all_inclusive", blank=False)
     price = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return str(self.id) + " | " + str(self.__class__)
 
 
 class Bills(models.Model):

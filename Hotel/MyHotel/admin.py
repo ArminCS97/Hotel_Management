@@ -18,3 +18,4 @@ class GuestAdmin(admin.ModelAdmin):
                 )
 class HotelAdmin(admin.ModelAdmin):
     pass
+
