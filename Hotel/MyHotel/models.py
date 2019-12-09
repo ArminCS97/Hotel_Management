@@ -1,7 +1,9 @@
 from django.db import models
+# Django creates an auto incremeneted Id for each model but here just for the
+# sake of emphasis I created id for each model explicitly
 
 
-class Banquet(models.Model):
+class Banquets(models.Model):
     id = models.AutoField(primary_key=True)
     breakfast = models.IntegerField(null=False, help_text="Breakfast", blank=False)
     dinner = models.IntegerField(null=False, help_text="Dinner", blank=False)
@@ -12,27 +14,27 @@ class Banquet(models.Model):
 
 class Bills(models.Model):
     id = models.AutoField(primary_key=True)
-    reason = models.CharField(max_length=225, null=False, default="", blank=True)
+    reason = models.CharField(max_length=255, null=False, default="", blank=True)
     amount = models.DecimalField(null=False, max_digits=5, decimal_places=2, blank=False)
     date = models.DateField(auto_now=True, null=False, blank=False)
 
 
 class Customers(models.Model):
     SSN = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=225, null=False, blank=False)
-    surname = models.CharField(max_length=225, null=True, blank=True)
-    email = models.EmailField(max_length=225, null=False, unique=True)
+    name = models.CharField(max_length=255, null=False, blank=False)
+    surname = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=255, null=False, unique=True)
     date_of_birth = models.DateField(auto_now_add=True, null=False)
-    gender = models.CharField(max_length=225, null=True, blank=True)
+    gender = models.CharField(max_length=255, null=True, blank=True)
 
 
 class Employees(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=225, null=False, blank=False)
-    surname = models.CharField(max_length=225, null=True, blank=True)
-    email = models.EmailField(max_length=225, null=False, unique=True)
+    name = models.CharField(max_length=255, null=False, blank=False)
+    surname = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=255, null=False, unique=True)
     date_of_birth = models.DateField(auto_now_add=True, null=False)
-    position = models.CharField(max_length=225, null=True, blank=True)
+    position = models.CharField(max_length=255, null=True, blank=True)
 
 
 class RoomTypes(models.Model):
@@ -59,9 +61,40 @@ class Booking(models.Model):
 class Guests(models.Model):
     id = models.AutoField(primary_key=True)
     room_number = models.ForeignKey(Rooms, on_delete=models.CASCADE)
-    name = models.CharField(max_length=225, null=False, blank=False)
-    surname = models.CharField(max_length=225, null=True, blank=True)
+    name = models.CharField(max_length=255, null=False, blank=False)
+    surname = models.CharField(max_length=255, null=True, blank=True)
     come_time = models.DateTimeField(null=False, auto_now_add=True)
     leave_time = models.DateTimeField(null=True, auto_now_add=True)
 
 
+class Payouts(models.Model):
+    id = models.AutoField(primary_key=True)
+    bill_id = models.ForeignKey(Bills, on_delete=models.CASCADE)
+    amount = models.DecimalField(null=False, max_digits=5, decimal_places=2)
+    currency = models.CharField(max_length=255, null=False, default='USD')
+    date = models.DateTimeField(null=False, auto_now_add=True)
+
+
+class Reservations(models.Model):
+    id = models.AutoField(primary_key=True)
+    room_number = models.ForeignKey(Rooms, on_delete=models.CASCADE)
+    customer_SSN = models.ForeignKey(Customers, on_delete=models.CASCADE)
+    bill_id = models.ForeignKey(Bills, on_delete=models.CASCADE)
+    banquet_id = models.ForeignKey(Banquets, on_delete=models.CASCADE)
+    date_from = models.DateTimeField(null=False, auto_now_add=True)
+    date_until = models.DateTimeField(null=False, auto_now_add=True)
+
+
+class RoomFeedback(models.Model):
+    id = models.AutoField(primary_key=True)
+    room_number = models.ForeignKey(Rooms, on_delete=models.CASCADE)
+    starts = models.IntegerField(default=5, null=False)
+    comment = models.TextField(null=True, blank=True)
+
+
+class SecuritySchedule(models.Model):
+    id = models.AutoField(primary_key=True)
+    employee_id = models.ForeignKey(Employees, on_delete=models.CASCADE)
+    day_of_week = models.CharField(max_length=255, null=True)
+    time_start = models.DateTimeField(null=True)
+    time_end = models.DateTimeField(null=True)
