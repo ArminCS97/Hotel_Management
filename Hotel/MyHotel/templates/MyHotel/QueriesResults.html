@@ -1,21 +1,44 @@
+{% if code %}
+Room Types
+<table border="3">
+    <th> ID </th>
+    <th> Type</th>
+    <th> Price </th>
+    {% for c in code %}
+    <tr>
+        <td>{{c.id}}</td>
+        <td>{{c.type}}</td>
+        <td>{{c.price}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+
+
 {% if code1 %}
 Customers
-    <ul>
+<table border="3">
+    <th> ID </th>
+    <th> Name </th>
+    <th> Surname </th>
+    <th> Email </th>
+    <th> Date of Birth </th>
+    <th> Gender </th>
     {% for c in code1 %}
-        <li>{{c.name}}</li>
-        <li>{{c.surname}}</li>
+    <tr>
+        <td>{{c.SSN}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.surname}}</td>
+        <td>{{c.date_of_birth }}</td>
+        <td>{{c.email}}</td>
+        <td>{{c.gender}} </td>
+    </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% endif %}
 
 
-{% if code %}
-RoomTypes
-    <ul>
-    {% for c in code %}
-        <li>{{c.type}}</li>
-        <li>{{c.price}}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+
+
 

@@ -8,8 +8,10 @@ def index(request):
 
 
 def roomTypes(request):
-    return render(request, 'MyHotel/QueriesResults.html', {"code": RoomTypes.objects.all()})
+    data = RoomTypes.objects.all()
+    return render(request, 'MyHotel/QueriesResults.html', {"code": data})
 
 
 def customers(request):
-    return render(request, 'MyHotel/QueriesResults.html', {"code1": Customers.objects.all()})
+    data = Customers.objects.all()
+    return render(request, 'MyHotel/QueriesResults.html', {"code1": data})
