@@ -1,0 +1,21 @@
+{% if code1 %}
+Customers
+    <ul>
+    {% for c in code1 %}
+        <li>{{c.name}}</li>
+        <li>{{c.surname}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+{% if code %}
+RoomTypes
+    <ul>
+    {% for c in code %}
+        <li>{{c.type}}</li>
+        <li>{{c.price}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
