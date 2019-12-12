@@ -1,3 +1,5 @@
+from collections import Iterable
+
 from django.db import models
 
 
@@ -46,6 +48,9 @@ class RoomTypes(models.Model):
     id = models.AutoField(primary_key=True)
     type = models.CharField(max_length=30, null=True, blank=False)
     price = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+
+    def __dir__(self):
+        return ['id', 'type', 'price']
 
 
 class Rooms(models.Model):

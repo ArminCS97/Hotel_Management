@@ -1,0 +1,27 @@
+{% if code1 %}
+Customers
+<table border="3">
+    <th> ID </th>
+    <th> Name </th>
+    <th> Surname </th>
+    <th> Email </th>
+    <th> Date of Birth </th>
+    <th> Gender </th>
+    {% for c in code1 %}
+    <tr>
+        <td>{{c.SSN}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.surname}}</td>
+        <td>{{c.date_of_birth }}</td>
+        <td>{{c.email}}</td>
+        <td>{{c.gender}} </td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+{% if form %}
+
+{{form}}
+
+{% endif %}
