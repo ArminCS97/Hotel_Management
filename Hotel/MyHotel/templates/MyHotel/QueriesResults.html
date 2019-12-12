@@ -14,4 +14,22 @@ Room Types
     </table>
 {% endif %}
 
-
+{% if code2 %}
+Guests
+<table border="3">
+    <th> ID </th>
+    <th> Room Number </th>
+    <th> Name </th>
+    <th> Arrival_Time </th>
+    <th> Leave_time </th>
+    {% for c in code2 %}
+    <tr>
+        <td>{{c.id}}</td>
+        <td>{{c.room_number}}</td>
+        <td>{{c.surname}}</td>
+        <td>{{c.come_time}}</td>
+        <td>{{c.leave_time}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
