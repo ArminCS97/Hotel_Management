@@ -3,7 +3,7 @@ from collections import Iterable
 from django.db import models
 
 
-# Django creates an auto incremeneted Id for each model but here just for the
+# Django creates an auto incremented Id for each model but here just for the
 # sake of emphasis I created id for each model explicitly
 
 
