@@ -35,3 +35,26 @@ Guests
     {% endfor %}
     </table>
 {% endif %}
+
+
+{% if reserved %}
+Guests
+<table border="3">
+    <th> ID </th>
+    <th> Room Number </th>
+    <th> Bill_id </th>
+    <th> Banquet_id </th>
+    <th> Date_from </th>
+    <th> Date_until </th>
+    {% for c in reserved %}
+    <tr>
+        <td>{{c.id}}</td>
+        <td>{{c.room_number}}</td>
+        <td>{{c.bill_id}}</td>
+        <td>{{c.banquet_id}}</td>
+        <td>{{c.date_from}}</td>
+        <td>{{c.date_until}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}

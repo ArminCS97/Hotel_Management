@@ -1,8 +1,8 @@
-from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.functions import datetime
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from .models import RoomTypes, Customers, Reservations, Guests, RoomFeedback, Rooms
-from .forms import CustomersForm
+
 
 
 def index(request):
@@ -24,10 +24,11 @@ def customers(request):
 
 
 def q1(request):
-    customer = Customers.objects.filter(name='Customer1')
-    if not customer:
+    customer_ssn = Customers.objects.get(name="Customer1")
+    reservations = Reservations.objects.filter(customer_SSN=customer_ssn)
+    if not reservations:
         raise Http404
-    return render(request, 'MyHotel/Customers.html', {"code1": customer})
+    return render(request, 'MyHotel/QueriesResults.html', {"reserved": reservations})
 
 
 def q2(request):
@@ -37,17 +38,20 @@ def q2(request):
     return render(request, 'MyHotel/Customers.html', {"code1": roomNum})
 
 
-def q3(request):  # to do
-    try:
-        reservations = Reservations.objects.all()
-        for r in reservations:
-            ssn = r.customers_SSN
-            count = Reservations.objects.count(customers_SSN=ssn)
-            if count >= 0:
-                reservations.exclude(r)
-            return render(request, 'MyHotel/Customers.html', {"code1": reservations})
-    except ObjectDoesNotExist:
-        return HttpResponse('No One Was Found')
+def q3(request):
+    customer_ssn = Customers.objects.get(name="Customer1")
+    reservations = Reservations.objects.filter(customer_SSN=customer_ssn)
+
+    customer_ssn2 = Customers.objects.get(name="Customer2")
+    reservations2 = Reservations.objects.filter(customer_SSN=customer_ssn2)
+
+    temp = []
+    for r in reservations:
+        if r not in reservations2:
+            temp.append(r)
+    if not reservations:
+        raise Http404
+    return render(request, 'MyHotel/QueriesResults.html', {"reserved": temp})
 
 
 def q4(request):
@@ -59,3 +63,16 @@ def q4(request):
         raise Http404
     return render(request, 'MyHotel/QueriesResults.html', {"code2": guests})
 
+
+def q5(request):
+    guests = Guests.objects.filter(room_number__floor='2').exclude(come_time=datetime.datetime.now())
+    if not guests:
+        raise Http404
+    return render(request, 'MyHotel/QueriesResults.html', {"code2": guests})
+
+
+def q6(request):
+    reservations = Reservations.objects.filter(room_number=2).filter(bill_id__reason=None)
+    if not reservations:
+        raise Http404('No Queries Exist for this request')
+    return render(request, 'MyHotel/QueriesResults.html', {"reserved": reservations})
