@@ -6,7 +6,3 @@ jobs:
 		steps:
 			- name: print greeting
 	 			run: echo "hey babbies"
-		    - name: print bye
-	 			run: echo "done bye"
-			
-    
