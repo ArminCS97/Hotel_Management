@@ -9,4 +9,7 @@ jobs:
 
     steps:
       - name: Print greeting
-        run: echo "Hey babies"
+        run: |
+          echo "Hey babies"
+          echo "Hey babies2"
+          echo "Hey babies3"
