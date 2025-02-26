@@ -1,8 +1,12 @@
-name: first workflow
-on: workflow_dispatch # The user manuall starts this wrkflow
+name: First Workflow
+
+on: 
+  workflow_dispatch # The user manually starts this workflow
+
 jobs:
-	first-job: # not reserved
-		runs-on: ubuntu-latest
-		steps:
-			- name: print greeting
-	 			run: echo "hey babbies"
+  first-job: # Job name (not reserved)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print greeting
+        run: echo "Hey babies"
